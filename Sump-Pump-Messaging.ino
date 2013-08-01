@@ -1,3 +1,14 @@
+// The basic idea here is to have a sump pump that tells you when something has gone wrong.
+// Measuring depth and so on is interesting but not very practical.
+// What you're intersted in is if the pump is failing.
+// For that you need to know if the pump is going to burn itself out from running too long.
+// To do that you need to know if its on. You won't get that from measuring depth.
+// For example. If the exit line freezes the reservoir won't drain and the pump keeps running.
+// Or the float can jam and the pump keeps trying to haul water from a dry reservoir.
+// At this point the code only sends an alert if the pump has been running for too long, or if the pump has somehow cleared itself.
+// But we'll have to add depth measurement later since if the pump has failed and the water level is still rising your basement will still flood.
+// The bulk of this sketch is the ThingSpeak API you can get from their website.
+
 /*
 
  Arduino --> ThingSpeak Channel via Ethernet
