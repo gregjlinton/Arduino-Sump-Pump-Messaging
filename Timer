@@ -1,0 +1,48 @@
+/*
+  A very simple time that used dely to count the number of seconds an input goes beyond a threshold value.
+  Once it drops below the threshold, it resets the counter.
+ */
+
+int sensorPin = A0;                   // the number of the input pin
+int threshold = 400;   // this sets the threshold value for the input sensor
+int sensorValue;       // this is the variable for the current sensor right now
+int last_sensorValue;  // this is the value that the current sensor was in the past
+
+
+long duration;  // variable to store the duration
+
+void setup()
+{
+  pinMode(sensorPin, INPUT);
+
+  Serial.begin(9600);
+  sensorValue = analogRead(sensorPin);        // now we're setting the current sensor variable to the value read in from the input pin
+  last_sensorValue = analogRead(sensorPin);   // we have to start with both the present and past tense values of the variable the same at the start of the program
+}
+
+void loop()
+{
+  sensorValue = analogRead(sensorPin);        //as part of the loop we're setting the present sensor reading
+  
+    if(sensorValue>threshold)
+    {
+    duration=duration+1;
+    Serial.println("Timer has been running for: ");
+    Serial.print(duration);
+    Serial.print(" seconds");
+    Serial.println(" ");
+    delay(1000);
+    last_sensorValue = sensorValue;
+    }
+        
+    else if ((sensorValue<threshold)&&(last_sensorValue>=threshold))
+    //else if (sensorValue<threshold)
+    { 
+    Serial.println("Timer has stopped running at: ");
+    Serial.print(duration);
+    Serial.print(" seconds");
+    Serial.println(" ");
+    duration=0;
+    last_sensorValue = sensorValue;
+    }
+}
